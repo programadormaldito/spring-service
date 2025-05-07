@@ -1,7 +1,10 @@
 package cl.fernando.CapaServicio.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Curso {
@@ -9,9 +12,12 @@ public class Curso {
     private String sigla;
     private String nombre;
 
+    @ManyToMany(mappedBy="cursos")
+    private List<Alumno> alumnos;
+
     public Curso() {
         this.sigla = "";
-        this.nombre = "";
+        this.nombre =  "";
     }
 
     public String getSigla() {
@@ -28,5 +34,13 @@ public class Curso {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public List<Alumno> getAlumnos() {
+        return alumnos;
+    }
+
+    public void setAlumnos(List<Alumno> alumnos) {
+        this.alumnos = alumnos;
     }
 }

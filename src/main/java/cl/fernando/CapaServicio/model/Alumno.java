@@ -1,7 +1,12 @@
 package cl.fernando.CapaServicio.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Alumno {
@@ -11,6 +16,14 @@ public class Alumno {
     private String nombre;
     private String apellido;
     private String contrasena;
+
+    @ManyToMany
+    @JoinTable(
+        name= "alumno_curso",
+        joinColumns= @JoinColumn(name= "alumno_rut"),
+        inverseJoinColumns= @JoinColumn(name= "curso_sigla")
+    )
+    private List<Curso> cursos;
 
     public Alumno() {
         this.rut = "";
@@ -58,5 +71,13 @@ public class Alumno {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
+    }
+
+    public List<Curso> getCursos() {
+        return cursos;
+    }
+
+    public void setCursos(List<Curso> cursos) {
+        this.cursos = cursos;
     }
 }
