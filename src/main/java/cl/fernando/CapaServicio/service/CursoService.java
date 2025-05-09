@@ -14,8 +14,12 @@ public class CursoService {
     private CursoRepository cursoRepository;
 
     public String almacenar(Curso curso) {
+        if (cursoRepository.findById(curso.getSigla()).isPresent()) {
+            return "El curso con sigla " + curso.getSigla() + " ya existe.";
+        }
+
         cursoRepository.save(curso);
-        return "Curso almacenado correctamente";
+        return "Curso registrado exitosamente";
     }
 
     public List<Curso> listar() {
